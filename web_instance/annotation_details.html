@@ -1,0 +1,38 @@
+<!--
+annotate_confirm.html - Confirmes that uploaded file was saved in Amazon S3
+Copyright (C) 2011-2018 Vas Vasiliadis <vas@uchicago.edu>
+University of Chicago
+-->
+{% extends "base.html" %}
+{% block title %}Annotate{% endblock %}
+{% block body %}
+  {% include "header.html" %}
+  <div class="container">
+    <div class="page-header">
+      <h2>Annotation Details</h2>
+    </div>
+    {% if job %}
+    <strong>Request ID: </strong>{% if job.job_id  %} {{ job.job_id }} {% else %} No such ID {% endif %}<br>
+    <strong>Request Time: </strong>{{ job.submit_time }}<br>
+    <strong>VCF Input File: </strong>{{ job.input_file_name }}<br>
+    <strong>Status: </strong>{{ job.job_status }}<br>
+    <strong>Complete Time: </strong>{% if complete  %}{{ complete }}{% endif %}<br>
+
+    <hr>
+
+    <strong>Annotated Results File: </strong>
+        {% if premium %}
+          {% if complete %} <a href="{{ url }}"> download</a> {% endif %}<br>
+        {% else %}
+          {% if complete %} <a href="{{ url_for('subscribe') }}"> upgrade to Premium for download {% endif %}</a><br>
+        {% endif %}
+    <strong>Annotation Log File: </strong> {% if complete %}<a href="{{ url_for('annotation_log', id=job.job_id) }}">view {% endif %}</a> <br>
+
+    <hr>
+
+    <a href="{{ url_for('annotations_list') }}">&#8592; back to annotations list</a>
+    {% endif %}
+
+
+  </div> <!-- container -->
+{% endblock %}

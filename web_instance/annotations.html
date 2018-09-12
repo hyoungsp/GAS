@@ -1,0 +1,96 @@
+<!--
+annotations.html - Display a list of user annotation jobs with links to details for each job
+Copyright (C) 2011-2018 Vas Vasiliadis <vas@uchicago.edu>
+University of Chicago
+-->
+{% extends "base.html" %}
+{% block title %}Annotations{% endblock %}
+{% block body %}
+  {% include "header.html" %}
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My Annotations</h1>
+    </div>
+
+    <div class="row text-right">
+      <a href="{{ url_for('annotate') }}" title="Request New Annotation">
+        <button type="button" class="btn btn-link" aria-label="Request New Annotation">
+          <i class="fa fa-plus fa-lg"></i> Request New Annotation
+        </button>
+      </a>
+    </div>
+    <style>
+        table {
+            /*font-family: arial, sans-serif;*/
+            /*border-collapse: collapse;*/
+            /*border: 1px solid #0e64ba;*/
+            /*width: 100%;*/
+        }
+
+        td, th {
+            /*border: 1px solid #0e64ba;*/
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            /*background-color: #dbf7ff;*/
+            /*border: 1px solid #0e64ba;*/
+        }
+    </style>
+
+    <table style="width:100%">
+      <tr>
+        <th><h3>Retuest ID</h3></th> <hr>
+        <th><h3>Request Time</h3></th>
+        <th><h3>VCF File Name</h3></th>
+        <th><h3>Status</h3></th>
+      </tr>
+      
+      <tr>
+        <td>
+          {% if annotations %}
+            {% for item in annotations %}
+              <a href="{{ url_for('annotation_details', id=item.job_id) }}">{{ item.job_id }}</a> <br>
+              <hr>
+            {% endfor %}
+          {% else %}
+            <p>No annotations found.</p>
+          {% endif %}
+        </td>
+         <td>
+          {% if annotations %}
+            {% for item in annotations %}
+              {{ item.submit_time}} <br>
+              <hr>
+            {% endfor %}
+          {% else %}
+            <p>No annotations found.</p>
+          {% endif %}
+        </td>
+        <td>
+          {% if annotations %}
+            {% for item in annotations %}
+              {{ item.input_file_name}} <br>
+              <hr>
+            {% endfor %}
+          {% else %}
+            <p>No annotations found.</p>
+          {% endif %}
+        </td>
+        <td>
+          {% if annotations %}
+            {% for item in annotations %}
+              {{ item.job_status}} <br>
+              <hr>
+            {% endfor %}
+          {% else %}
+            <p>No annotations found.</p>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+
+  </div> <!-- container -->
+{% endblock %}

@@ -1,0 +1,25 @@
+<!--
+annotate_confirm.html - Confirmes that uploaded file was saved in Amazon S3
+Copyright (C) 2011-2018 Vas Vasiliadis <vas@uchicago.edu>
+University of Chicago
+-->
+{% extends "base.html" %}
+{% block title %}Annotate{% endblock %}
+{% block body %}
+  {% include "header.html" %}
+  <div class="container">
+    <div class="page-header">
+      <h2>Display Log</h2>
+    </div>
+
+    	{% if log %}
+            {% for line in log %}
+              {{ line }} <br>
+            {% endfor %}
+        {% else %}
+            <p>No log results found.</p>
+        {% endif %}
+
+
+  </div> <!-- container -->
+{% endblock %}
